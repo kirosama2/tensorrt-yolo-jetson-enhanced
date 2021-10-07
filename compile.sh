@@ -2,3 +2,4 @@
 
 cd src/build
 make
+cd ../../
