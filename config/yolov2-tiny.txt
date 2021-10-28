@@ -18,4 +18,18 @@
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#
+# SOFTWARE.
+
+### This is a sample config file for yolo plugin and the trt-yolo-app
+# Statements starting with '#' are ignored.
+
+# The following 4 config params are required for yolo plugin and trt-yolo-app
+
+# network_type : Type of network architecture. Choose from yolov2, yolov2-tiny, yolov3 and yolov3-tiny
+# config_file_path  : Darknet cfg file
+# wts_file_path : Darknet weights file
+# labels_file_path : Text file with a list of object class labels
+
+--network_type=yolov2-tiny
+--config_file_path=data/yolov2-tiny.cfg
+--wts_file_path=data/yolov2
