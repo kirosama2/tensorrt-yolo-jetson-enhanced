@@ -32,4 +32,11 @@
 
 --network_type=yolov2-tiny
 --config_file_path=data/yolov2-tiny.cfg
---wts_file_path=data/yolov2
+--wts_file_path=data/yolov2-tiny.weights
+--labels_file_path=data/labels.txt
+
+#Optional config params
+# precision : Inference precision of the network
+# calibration_table_path : Path to pre-generated calibration table. If flag is not set, a new calib table <network-type>-<precision>-calibration.table will be generated
+# engine_file_path : Path to pre-generated engine(PLAN) file. If flag is not set, a new engine <network-type>-<precision>-<batch-size>.engine will be generated
+# input_blob_name : Name of the input layer in the tensorRT engine
