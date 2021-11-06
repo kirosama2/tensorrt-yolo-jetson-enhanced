@@ -1,3 +1,4 @@
+
 # MIT License
 
 # Copyright (c) 2018 NVIDIA CORPORATION. All rights reserved.
@@ -30,9 +31,9 @@
 # wts_file_path : Darknet weights file
 # labels_file_path : Text file with a list of object class labels
 
---network_type=yolov2-tiny
---config_file_path=data/yolov2-tiny.cfg
---wts_file_path=data/yolov2-tiny.weights
+--network_type=yolov2
+--config_file_path=data/yolov2.cfg
+--wts_file_path=data/yolov2.weights
 --labels_file_path=data/labels.txt
 
 #Optional config params
@@ -48,7 +49,7 @@
 
 #Uncomment the lines below to use a specific config param
 #--precision=kINT8
-#--calibration_table_path=data/calibration/yolov2-tiny-calibration.table
+#--calibration_table_path=data/calibration/yolov2-calibration.table
 #--engine_file_path=
 #--print_prediction_info=true
 #--print_perf_info=true
