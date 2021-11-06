@@ -46,4 +46,17 @@
 # prob_thresh : Probability threshold for detected objects. Default value is 0.5
 # nms_thresh : IOU threshold for bounding box candidates. Default value is 0.5
 
-#Uncomment the lines below
+#Uncomment the lines below to use a specific config param
+#--precision=kINT8
+#--calibration_table_path=data/calibration/yolov2-tiny-calibration.table
+#--engine_file_path=
+#--print_prediction_info=true
+#--print_perf_info=true
+
+
+### Config params trt-yolo-app only
+
+# test_images : [REQUIRED] Text file containing absolute paths of all the images to be used for inference. Default value is data/test_images.txt.
+# batch_size : Set batch size for inference engine. Default value is 1.
+# view_detections : Flag to view images overlayed with objects detected. Default value is false.
+# save_detections : Fl
