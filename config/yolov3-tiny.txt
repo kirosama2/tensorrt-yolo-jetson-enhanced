@@ -26,4 +26,16 @@
 # The following 4 config params are required for yolo plugin and trt-yolo-app
 
 # network_type : Type of network architecture. Choose from yolov2, yolov2-tiny, yolov3 and yolov3-tiny
-# config_file_path  
+# config_file_path  : Darknet cfg file
+# wts_file_path : Darknet weights file
+# labels_file_path : Text file with a list of object class labels
+
+--network_type=yolov3-tiny
+--config_file_path=data/yolov3-tiny.cfg
+--wts_file_path=data/yolov3-tiny.weights
+--labels_file_path=data/labels.txt
+
+#Optional config params
+# precision : Inference precision of the network
+# calibration_table_path : Path to pre-generated calibration table. If flag is not set, a new calib table <network-type>-<precision>-calibration.table will be generated
+#
