@@ -42,4 +42,18 @@
 # input_blob_name : Name of the input layer in the tensorRT engine file. Default value is 'data'
 # print_perf_info : Print performance info on the console. Default value is false
 # print_detection_info : Print detection info on the console. Default value is false
-# calibration_images : Text file containing absolute paths of calibration images. Flag required if precision is kINT8
+# calibration_images : Text file containing absolute paths of calibration images. Flag required if precision is kINT8 and there is no pre-generated calibration table
+# prob_thresh : Probability threshold for detected objects. Default value is 0.5
+# nms_thresh : IOU threshold for bounding box candidates. Default value is 0.5
+
+#Uncomment the lines below to use a specific config param
+--precision=kHALF
+#--calibration_table_path=data/calibration/yolov3-tiny-calibration.table
+#--engine_file_path=
+#--print_prediction_info=true
+#--print_perf_info=true
+
+
+### Config params trt-yolo-app only
+
+# test_images : [REQUIRED] Text file containing abso
