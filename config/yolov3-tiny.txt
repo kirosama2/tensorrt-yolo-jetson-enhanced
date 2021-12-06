@@ -38,4 +38,8 @@
 #Optional config params
 # precision : Inference precision of the network
 # calibration_table_path : Path to pre-generated calibration table. If flag is not set, a new calib table <network-type>-<precision>-calibration.table will be generated
-#
+# engine_file_path : Path to pre-generated engine(PLAN) file. If flag is not set, a new engine <network-type>-<precision>-<batch-size>.engine will be generated
+# input_blob_name : Name of the input layer in the tensorRT engine file. Default value is 'data'
+# print_perf_info : Print performance info on the console. Default value is false
+# print_detection_info : Print detection info on the console. Default value is false
+# calibration_images : Text file containing absolute paths of calibration images. Flag required if precision is kINT8
