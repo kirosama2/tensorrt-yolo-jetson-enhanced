@@ -56,4 +56,9 @@
 
 ### Config params trt-yolo-app only
 
-# test_images : [REQUIRED] Text file containing abso
+# test_images : [REQUIRED] Text file containing absolute paths of all the images to be used for inference. Default value is data/test_images.txt.
+# batch_size : Set batch size for inference engine. Default value is 1.
+# view_detections : Flag to view images overlayed with objects detected. Default value is false.
+# save_detections : Flag to save images overlayed with objects detected. Default value is true.
+# save_detections_path : Path where the images overlayed with bounding boxes are to be saved. Required param if save_detections is set to true.
+# decode : Dec
