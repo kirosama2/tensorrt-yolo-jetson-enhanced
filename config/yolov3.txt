@@ -1,3 +1,4 @@
+
 # MIT License
 
 # Copyright (c) 2018 NVIDIA CORPORATION. All rights reserved.
@@ -30,9 +31,9 @@
 # wts_file_path : Darknet weights file
 # labels_file_path : Text file with a list of object class labels
 
---network_type=yolov3-tiny
---config_file_path=data/yolov3-tiny.cfg
---wts_file_path=data/yolov3-tiny.weights
+--network_type=yolov3
+--config_file_path=data/yolov3.cfg
+--wts_file_path=data/yolov3.weights
 --labels_file_path=data/labels.txt
 
 #Optional config params
@@ -48,7 +49,7 @@
 
 #Uncomment the lines below to use a specific config param
 --precision=kHALF
-#--calibration_table_path=data/calibration/yolov3-tiny-calibration.table
+#--calibration_table_path=data/calibration/yolov3-calibration.table
 #--engine_file_path=
 #--print_prediction_info=true
 #--print_perf_info=true
@@ -59,19 +60,3 @@
 # test_images : [REQUIRED] Text file containing absolute paths of all the images to be used for inference. Default value is data/test_images.txt.
 # batch_size : Set batch size for inference engine. Default value is 1.
 # view_detections : Flag to view images overlayed with objects detected. Default value is false.
-# save_detections : Flag to save images overlayed with objects detected. Default value is true.
-# save_detections_path : Path where the images overlayed with bounding boxes are to be saved. Required param if save_detections is set to true.
-# decode : Decode the detections. This can be set to false if benchmarking network for throughput only. Default value is true.
-# seed : Seed for the random number generator. Default value is std::time(0)
-
-
-#Uncomment the lines below to use a specific config param
-#--test_images=data/test_images.txt
-#--batch_size=4
-#--do_benchmark=true
-#--view_detections=true
-#--save_detections=true
-#--save_detections_path=data/detections/
-#--decode=false
-#--seed
-#--shuffle_test_set=false
