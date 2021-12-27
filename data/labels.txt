@@ -66,4 +66,15 @@ mouse
 remote
 keyboard
 cell phone
-micro
+microwave
+oven
+toaster
+sink
+refrigerator
+book
+clock
+vase
+scissors
+teddy bear
+hair drier
+toothbrush
