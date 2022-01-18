@@ -31,4 +31,18 @@ SOFTWARE.
 Int8EntropyCalibrator::Int8EntropyCalibrator(const uint& batchSize, const std::string& calibImages,
                                              const std::string& calibImagesPath,
                                              const std::string& calibTableFilePath,
-                                             const uint64_t& inpu
+                                             const uint64_t& inputSize, const uint& inputH,
+                                             const uint& inputW, const std::string& inputBlobName) :
+    m_BatchSize(batchSize),
+    m_InputH(inputH),
+    m_InputW(inputW),
+    m_InputSize(inputSize),
+    m_InputCount(batchSize * inputSize),
+    m_InputBlobName(inputBlobName),
+    m_CalibTableFilePath(calibTableFilePath),
+    m_ImageIndex(0)
+{
+    if (!fileExists(m_CalibTableFilePath, false))
+    {
+        m_ImageList = loadImageList(calibImages, calibImagesPath);
+        m_ImageList.r
