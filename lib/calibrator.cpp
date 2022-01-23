@@ -45,4 +45,18 @@ Int8EntropyCalibrator::Int8EntropyCalibrator(const uint& batchSize, const std::s
     if (!fileExists(m_CalibTableFilePath, false))
     {
         m_ImageList = loadImageList(calibImages, calibImagesPath);
-        m_ImageList.r
+        m_ImageList.resize(static_cast<int>(m_ImageList.size() / m_BatchSize) * m_BatchSize);
+        std::random_shuffle(m_ImageList.begin(), m_ImageList.end(),
+                            [](int i) { return rand() % i; });
+    }
+
+    NV_CUDA_CHECK(cudaMalloc(&m_DeviceInput, m_InputCount * sizeof(float)));
+}
+
+Int8EntropyCalibrator::~Int8EntropyCalibrator() { NV_CUDA_CHECK(cudaFree(m_DeviceInput)); }
+
+bool Int8EntropyCalibrator::getBatch(void* bindings[], const char* names[], int nbBindings)
+{
+    if (m_ImageIndex + m_BatchSize >= m_ImageList.size()) return false;
+
+    // Load next 
