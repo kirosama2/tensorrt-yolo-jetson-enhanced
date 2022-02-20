@@ -59,4 +59,16 @@ bool Int8EntropyCalibrator::getBatch(void* bindings[], const char* names[], int 
 {
     if (m_ImageIndex + m_BatchSize >= m_ImageList.size()) return false;
 
-    // Load next 
+    // Load next batch
+    std::vector<DsImage> dsImages(m_BatchSize);
+    for (uint j = m_ImageIndex; j < m_ImageIndex + m_BatchSize; ++j)
+    {
+        dsImages.at(j - m_ImageIndex) = DsImage(m_ImageList.at(j), m_InputH, m_InputW);
+    }
+    m_ImageIndex += m_BatchSize;
+
+    cv::Mat trtInput = blobFromDsImages(dsImages, m_InputH, m_InputW);
+
+    NV_CUDA_CHECK(cudaMemcpy(m_DeviceInput, trtInput.ptr<float>(0), m_InputCount * sizeof(float),
+                             cudaMemcpyHostToDevice));
+    assert(!strcmp(names[0], m_InputBlobName.c_st
