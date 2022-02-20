@@ -90,4 +90,23 @@ const void* Int8EntropyCalibrator::readCalibrationCache(size_t& length)
     length = m_CalibrationCache.size();
     if (length)
     {
-  
+        std::cout << "Using cached calibration table to build the engine" << std::endl;
+        output = &m_CalibrationCache[0];
+    }
+
+    else
+    {
+        std::cout << "New calibration table will be created to build the engine" << std::endl;
+        output = nullptr;
+    }
+
+    return output;
+}
+
+void Int8EntropyCalibrator::writeCalibrationCache(const void* cache, size_t length)
+{
+    assert(!m_CalibTableFilePath.empty());
+    std::ofstream output(m_CalibTableFilePath, std::ios::binary);
+    output.write(reinterpret_cast<const char*>(cache), length);
+    output.close();
+}
