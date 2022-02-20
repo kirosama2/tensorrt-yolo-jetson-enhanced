@@ -71,4 +71,23 @@ bool Int8EntropyCalibrator::getBatch(void* bindings[], const char* names[], int 
 
     NV_CUDA_CHECK(cudaMemcpy(m_DeviceInput, trtInput.ptr<float>(0), m_InputCount * sizeof(float),
                              cudaMemcpyHostToDevice));
-    assert(!strcmp(names[0], m_InputBlobName.c_st
+    assert(!strcmp(names[0], m_InputBlobName.c_str()));
+    bindings[0] = m_DeviceInput;
+    return true;
+}
+
+const void* Int8EntropyCalibrator::readCalibrationCache(size_t& length)
+{
+    void* output;
+    m_CalibrationCache.clear();
+    assert(!m_CalibTableFilePath.empty());
+    std::ifstream input(m_CalibTableFilePath, std::ios::binary);
+    input >> std::noskipws;
+    if (m_ReadCache && input.good())
+        std::copy(std::istream_iterator<char>(input), std::istream_iterator<char>(),
+                  std::back_inserter(m_CalibrationCache));
+
+    length = m_CalibrationCache.size();
+    if (length)
+    {
+  
