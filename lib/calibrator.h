@@ -22,4 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *
 */
-#ifndef _CAL
+#ifndef _CALIBRATOR_H_
+#define _CALIBRATOR_H_
+
+#include "NvInfer.h"
+#include "ds_image.h"
+#include "trt_utils.h"
+
+class Int8EntropyCalibrator : public nvinfer1::IInt8EntropyCalibrator
+{
+public:
+    Int8EntropyCalibrator(const uint& batchSize, const std::string& calibImages,
+                          const std::string& calibImagesPath, const std::string& calibTableFilePath,
+                          const uint64_t& inputSize, const uint& inputH, const uint& inputW,
+                          const std::string& inputBlobName);
+    virtual ~Int8EntropyCalibrator();
+
+    int getBatchSize() const override { return m_Batch
