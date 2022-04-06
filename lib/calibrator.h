@@ -53,4 +53,9 @@ private:
     const std::string m_CalibTableFilePath{nullptr};
     uint m_ImageIndex;
     bool m_ReadCache{true};
-    void* m_Devic
+    void* m_DeviceInput{nullptr};
+    std::vector<std::string> m_ImageList;
+    std::vector<char> m_CalibrationCache;
+};
+
+#endif
