@@ -38,4 +38,19 @@ public:
                           const std::string& inputBlobName);
     virtual ~Int8EntropyCalibrator();
 
-    int getBatchSize() const override { return m_Batch
+    int getBatchSize() const override { return m_BatchSize; }
+    bool getBatch(void* bindings[], const char* names[], int nbBindings) override;
+    const void* readCalibrationCache(size_t& length) override;
+    void writeCalibrationCache(const void* cache, size_t length) override;
+
+private:
+    const uint m_BatchSize;
+    const uint m_InputH;
+    const uint m_InputW;
+    const uint64_t m_InputSize;
+    const uint64_t m_InputCount;
+    const std::string m_InputBlobName;
+    const std::string m_CalibTableFilePath{nullptr};
+    uint m_ImageIndex;
+    bool m_ReadCache{true};
+    void* m_Devic
