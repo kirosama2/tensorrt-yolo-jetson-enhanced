@@ -42,4 +42,19 @@ SOFTWARE.
                       << " at line " << __LINE__ << std::endl;                                     \
             abort();                                                                               \
         }                                                                                          \
- 
+    }
+
+// Forward declaration of cuda kernels
+cudaError_t cudaYoloLayerV3(const void* input, void* output, const uint& batchSize,
+                            const uint& gridSize, const uint& numOutputClasses,
+                            const uint& numBBoxes, uint64_t outputSize, cudaStream_t stream);
+
+class PluginFactory : public nvinfer1::IPluginFactory
+{
+
+public:
+    PluginFactory();
+    nvinfer1::IPlugin* createPlugin(const char* layerName, const void* serialData,
+                                    size_t serialLength) override;
+    bool isPlugin(const char* name);
+    void 
