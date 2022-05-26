@@ -57,4 +57,17 @@ public:
     nvinfer1::IPlugin* createPlugin(const char* layerName, const void* serialData,
                                     size_t serialLength) override;
     bool isPlugin(const char* name);
-    void 
+    void destroy();
+
+private:
+    static const int m_MaxLeakyLayers = 72;
+    static const int m_ReorgStride = 2;
+    static constexpr float m_LeakyNegSlope = 0.1;
+    static const int m_NumBoxes = 5;
+    static const int m_NumCoords = 4;
+    static const int m_NumClasses = 80;
+    static const int m_MaxYoloLayers = 3;
+    int m_LeakyReLUCount = 0;
+    int m_YoloLayerCount = 0;
+    nvinfer1::plugin::RegionParameters m_RegionParameters{m_NumBoxes, m_NumCoords, m_NumClasses,
+                                                          nullptr};
