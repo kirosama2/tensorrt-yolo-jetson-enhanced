@@ -71,3 +71,28 @@ private:
     int m_YoloLayerCount = 0;
     nvinfer1::plugin::RegionParameters m_RegionParameters{m_NumBoxes, m_NumCoords, m_NumClasses,
                                                           nullptr};
+
+    struct INvPluginDeleter
+    {
+        void operator()(nvinfer1::plugin::INvPlugin* ptr)
+        {
+            if (ptr)
+            {
+                ptr->destroy();
+            }
+        }
+    };
+    struct IPluginDeleter
+    {
+        void operator()(nvinfer1::IPlugin* ptr)
+        {
+            if (ptr)
+            {
+                ptr->terminate();
+            }
+        }
+    };
+    typedef std::unique_ptr<nvinfer1::plugin::INvPlugin, INvPluginDeleter> unique_ptr_INvPlugin;
+    typedef std::unique_ptr<nvinfer1::IPlugin, IPluginDeleter> unique_ptr_IPlugin;
+
+    u
