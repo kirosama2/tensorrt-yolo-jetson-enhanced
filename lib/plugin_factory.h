@@ -95,4 +95,17 @@ private:
     typedef std::unique_ptr<nvinfer1::plugin::INvPlugin, INvPluginDeleter> unique_ptr_INvPlugin;
     typedef std::unique_ptr<nvinfer1::IPlugin, IPluginDeleter> unique_ptr_IPlugin;
 
-    u
+    unique_ptr_INvPlugin m_ReorgLayer;
+    unique_ptr_INvPlugin m_RegionLayer;
+    unique_ptr_INvPlugin m_LeakyReLULayers[m_MaxLeakyLayers];
+    unique_ptr_IPlugin m_YoloLayers[m_MaxYoloLayers];
+};
+
+class YoloLayerV3 : public nvinfer1::IPlugin
+{
+public:
+    YoloLayerV3(const void* data, size_t length);
+    YoloLayerV3(const uint& numBoxes, const uint& numClasses, const uint& gridSize);
+    int getNbOutputs() const override;
+    nvinfer1::Dims getOutputDimensions(int index, const nvinfer1::Dims* inputs,
+                                       int
