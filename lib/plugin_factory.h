@@ -108,4 +108,16 @@ public:
     YoloLayerV3(const uint& numBoxes, const uint& numClasses, const uint& gridSize);
     int getNbOutputs() const override;
     nvinfer1::Dims getOutputDimensions(int index, const nvinfer1::Dims* inputs,
-                                       int
+                                       int nbInputDims) override;
+    void configure(const nvinfer1::Dims* inputDims, int nbInputs, const nvinfer1::Dims* outputDims,
+                   int nbOutputs, int maxBatchSize) override;
+    int initialize() override;
+    void terminate() override;
+    size_t getWorkspaceSize(int maxBatchSize) const override;
+    int enqueue(int batchSize, const void* const* intputs, void** outputs, void* workspace,
+                cudaStream_t stream) override;
+    size_t getSerializationSize() override;
+    void serialize(void* buffer) override;
+
+private:
+    te
