@@ -120,4 +120,23 @@ public:
     void serialize(void* buffer) override;
 
 private:
-    te
+    template <typename T>
+    void write(char*& buffer, const T& val)
+    {
+        *reinterpret_cast<T*>(buffer) = val;
+        buffer += sizeof(T);
+    }
+
+    template <typename T>
+    void read(const char*& buffer, T& val)
+    {
+        val = *reinterpret_cast<const T*>(buffer);
+        buffer += sizeof(T);
+    }
+    uint m_NumBoxes;
+    uint m_NumClasses;
+    uint m_GridSize;
+    uint64_t m_OutputSize;
+};
+
+#endif // __PLUGIN_LAYER_H__
