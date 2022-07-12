@@ -17,4 +17,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*
+*/
+
+#include "yolo_config_parser.h"
+
+#include <assert.h>
+#include <iostream>
+
+DEFINE_string(network_type, "not-specified",
+              "[REQUIRED] Type of network architecture. Choose from yolov2, yolov2-tiny, "
+              "yolov3 and yolov3-tiny");
+DEFINE_string(config_file_path, "not-specified", "[REQUIRED] Darknet cfg file");
+DEFINE_string(wts_file_path, "not-
