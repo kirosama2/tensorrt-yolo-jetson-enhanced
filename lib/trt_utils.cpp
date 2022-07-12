@@ -659,3 +659,6 @@ void printLayerInfo(std::string layerIndex, std::string layerName, std::string l
 {
     std::cout << std::setw(6) << std::left << layerIndex << std::setw(15) << std::left << layerName;
     std::cout << std::setw(20) << std::left << layerInput << std::setw(20) << std::left
+              << layerOutput;
+    std::cout << std::setw(6) << std::left << weightPtr << std::endl;
+}
