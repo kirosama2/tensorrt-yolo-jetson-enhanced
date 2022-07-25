@@ -32,4 +32,11 @@ DEFINE_string(network_type, "not-specified",
               "[REQUIRED] Type of network architecture. Choose from yolov2, yolov2-tiny, "
               "yolov3 and yolov3-tiny");
 DEFINE_string(config_file_path, "not-specified", "[REQUIRED] Darknet cfg file");
-DEFINE_string(wts_file_path, "not-
+DEFINE_string(wts_file_path, "not-specified", "[REQUIRED] Darknet weights file");
+DEFINE_string(labels_file_path, "not-specified", "[REQUIRED] Object class labels file");
+DEFINE_string(precision, "kFLOAT",
+              "[OPTIONAL] Inference precision. Choose from kFLOAT, kHALF and kINT8.");
+DEFINE_string(deviceType, "kGPU",
+              "[OPTIONAL] The device that this layer/network will execute on. Choose from kGPU and kDLA(only for kHALF).");
+DEFINE_string(calibration_table_path, "not-specified",
+              "[OPTIONAL] Path to pre-generated calibration table. If flag 
