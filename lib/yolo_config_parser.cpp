@@ -39,4 +39,11 @@ DEFINE_string(precision, "kFLOAT",
 DEFINE_string(deviceType, "kGPU",
               "[OPTIONAL] The device that this layer/network will execute on. Choose from kGPU and kDLA(only for kHALF).");
 DEFINE_string(calibration_table_path, "not-specified",
-              "[OPTIONAL] Path to pre-generated calibration table. If flag 
+              "[OPTIONAL] Path to pre-generated calibration table. If flag is not set, a new calib "
+              "table <network-type>-<precision>-calibration.table will be generated");
+DEFINE_string(engine_file_path, "not-specified",
+              "[OPTIONAL] Path to pre-generated engine(PLAN) file. If flag is not set, a new "
+              "engine <network-type>-<precision>-<batch-size>.engine will be generated");
+DEFINE_string(input_blob_name, "data",
+              "[OPTIONAL] Name of the input layer in the tensorRT engine file");
+DEFINE_bool(print_perf_info, false, "[OPTIONAl] Print per
