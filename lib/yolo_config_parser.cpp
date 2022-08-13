@@ -46,4 +46,12 @@ DEFINE_string(engine_file_path, "not-specified",
               "engine <network-type>-<precision>-<batch-size>.engine will be generated");
 DEFINE_string(input_blob_name, "data",
               "[OPTIONAL] Name of the input layer in the tensorRT engine file");
-DEFINE_bool(print_perf_info, false, "[OPTIONAl] Print per
+DEFINE_bool(print_perf_info, false, "[OPTIONAl] Print performance info on the console");
+DEFINE_bool(print_prediction_info, false, "[OPTIONAL] Print detection info on the console");
+DEFINE_string(
+    test_images, "data/test_images.txt",
+    "[REQUIRED] Text file containing absolute paths or filenames of all the images to be "
+    "used for inference. If only filenames are provided, their corresponding source directory "
+    "has to be provided through 'test_images_path' flag");
+DEFINE_string(test_images_path, "not-specified",
+              "[OPTIONAL] absolute source directory 
