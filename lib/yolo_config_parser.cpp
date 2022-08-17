@@ -54,4 +54,12 @@ DEFINE_string(
     "used for inference. If only filenames are provided, their corresponding source directory "
     "has to be provided through 'test_images_path' flag");
 DEFINE_string(test_images_path, "not-specified",
-              "[OPTIONAL] absolute source directory 
+              "[OPTIONAL] absolute source directory path of the list of images supplied through "
+              "'test_images' flag");
+DEFINE_string(calibration_images, "data/calibration_images.txt",
+              "[OPTIONAL] Text file containing absolute paths or filenames of calibration images. "
+              "Flag required if precision is kINT8 and there is not pre-generated calibration "
+              "table. If only filenames are provided, their corresponding source directory has to "
+              "be provided through 'calibration_images_path' flag");
+DEFINE_string(calibration_images_path, "not-specified",
+      
