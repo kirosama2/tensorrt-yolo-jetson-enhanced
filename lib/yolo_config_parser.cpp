@@ -62,4 +62,11 @@ DEFINE_string(calibration_images, "data/calibration_images.txt",
               "table. If only filenames are provided, their corresponding source directory has to "
               "be provided through 'calibration_images_path' flag");
 DEFINE_string(calibration_images_path, "not-specified",
-      
+              "[OPTIONAL] absolute source directory path of the list of images supplied through "
+              "'calibration_images' flag");
+DEFINE_uint64(batch_size, 1, "[OPTIONAL] Batch size for the inference engine.");
+DEFINE_double(prob_thresh, 0.5, "[OPTIONAL] Probability threshold for detected objects");
+DEFINE_double(nms_thresh, 0.5, "[OPTIONAL] IOU threshold for bounding box candidates");
+DEFINE_bool(do_benchmark, false,
+            "[OPTIONAL] Generate JSON file with detection info in coco benchmark format");
+DEFINE_bool(save_detections, false,
