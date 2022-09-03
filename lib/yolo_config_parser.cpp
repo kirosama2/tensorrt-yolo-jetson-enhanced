@@ -156,3 +156,19 @@ void yoloConfigParserInit(int argc, char** argv)
     }
 }
 
+NetworkInfo getYoloNetworkInfo()
+{
+    return NetworkInfo{FLAGS_network_type,     FLAGS_config_file_path, FLAGS_wts_file_path,
+                       FLAGS_labels_file_path, FLAGS_precision,        FLAGS_deviceType,
+                       FLAGS_calibration_table_path, FLAGS_engine_file_path, FLAGS_input_blob_name};
+}
+
+InferParams getYoloInferParams()
+{
+
+    return InferParams{FLAGS_print_perf_info,    FLAGS_print_prediction_info,
+                       FLAGS_calibration_images, FLAGS_calibration_images_path,
+                       FLAGS_prob_thresh,        FLAGS_nms_thresh};
+}
+
+uint64_t getSeed()
