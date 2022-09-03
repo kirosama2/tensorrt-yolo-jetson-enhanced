@@ -79,4 +79,13 @@ DEFINE_bool(
     decode, true,
     "[OPTIONAL] Decode the detections. This can be set to false if benchmarking network for "
     "throughput only");
-DEFINE_uint6
+DEFINE_uint64(seed, std::time(0), "[OPTIONAL] Seed for the random number generator");
+DEFINE_bool(shuffle_test_set, false,
+            "[OPTIONAL] Shuffle the test set images before running inference");
+
+static bool isFlagDefault(std::string flag) { return flag == "not-specified" ? true : false; }
+
+static bool networkTypeValidator(const char* flagName, std::string value)
+{
+    if (((FLAGS_network_type) == "yolov2") || ((FLAGS_network_type) == "yolov2-tiny")
+        || ((FLAGS_network_type) == "yolov3") || ((FLAGS_network_type) == "yolov3-t
