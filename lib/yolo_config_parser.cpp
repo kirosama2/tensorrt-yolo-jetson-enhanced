@@ -130,4 +130,16 @@ static bool verifyRequiredFlags()
 void yoloConfigParserInit(int argc, char** argv)
 {
     gflags::ParseCommandLineFlags(&argc, &argv, false);
-    assert(verifyRequiredFlags())
+    assert(verifyRequiredFlags());
+
+    FLAGS_calibration_images_path
+        = isFlagDefault(FLAGS_calibration_images_path) ? "" : FLAGS_calibration_images_path;
+    FLAGS_test_images_path = isFlagDefault(FLAGS_test_images_path) ? "" : FLAGS_test_images_path;
+
+    if (isFlagDefault(FLAGS_engine_file_path))
+    {
+        int npos = FLAGS_wts_file_path.find(".weights");
+        assert(npos != std::string::npos
+               && "wts file file not recognised. File needs to be of '.weights' format");
+        std::string dataPath = FLAGS_wts_file_path.substr(0, npos);
+        FLAGS_engine_file_path = dataPath + "-" + 
