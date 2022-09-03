@@ -117,4 +117,17 @@ static bool verifyRequiredFlags()
            && "Darknet weights file is required and not specified.");
     assert(!isFlagDefault(FLAGS_labels_file_path) && "Lables file is required and not specified.");
     assert((FLAGS_wts_file_path.find(".weights") != std::string::npos)
-           && "wts file not recog
+           && "wts file not recognised. File needs to be of '.weights' format");
+    assert((FLAGS_config_file_path.find(".cfg") != std::string::npos)
+           && "config file not recognised. File needs to be of '.cfg' format");
+    if (!(networkTypeValidator("network_type", FLAGS_network_type)
+          && precisionTypeValidator("precision", FLAGS_precision)))
+        return false;
+
+    return true;
+}
+
+void yoloConfigParserInit(int argc, char** argv)
+{
+    gflags::ParseCommandLineFlags(&argc, &argv, false);
+    assert(verifyRequiredFlags())
