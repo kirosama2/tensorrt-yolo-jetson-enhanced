@@ -109,4 +109,12 @@ static bool precisionTypeValidator(const char* flagName, std::string value)
 
 static bool verifyRequiredFlags()
 {
-    asse
+    assert(!isFlagDefault(FLAGS_network_type)
+           && "Type of network is required and is not specified.");
+    assert(!isFlagDefault(FLAGS_config_file_path)
+           && "Darknet cfg file path is required and not specified.");
+    assert(!isFlagDefault(FLAGS_wts_file_path)
+           && "Darknet weights file is required and not specified.");
+    assert(!isFlagDefault(FLAGS_labels_file_path) && "Lables file is required and not specified.");
+    assert((FLAGS_wts_file_path.find(".weights") != std::string::npos)
+           && "wts file not recog
