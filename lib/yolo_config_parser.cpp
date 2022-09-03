@@ -70,3 +70,13 @@ DEFINE_double(nms_thresh, 0.5, "[OPTIONAL] IOU threshold for bounding box candid
 DEFINE_bool(do_benchmark, false,
             "[OPTIONAL] Generate JSON file with detection info in coco benchmark format");
 DEFINE_bool(save_detections, false,
+            "[OPTIONAL] Flag to save images overlayed with objects detected.");
+DEFINE_bool(view_detections, false,
+            "[OPTIONAL] Flag to view images overlayed with objects detected.");
+DEFINE_string(save_detections_path, "not-specified",
+              "[OPTIONAL] Path where the images overlayed with bounding boxes are to be saved");
+DEFINE_bool(
+    decode, true,
+    "[OPTIONAL] Decode the detections. This can be set to false if benchmarking network for "
+    "throughput only");
+DEFINE_uint6
