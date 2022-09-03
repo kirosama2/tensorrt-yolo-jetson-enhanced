@@ -142,4 +142,17 @@ void yoloConfigParserInit(int argc, char** argv)
         assert(npos != std::string::npos
                && "wts file file not recognised. File needs to be of '.weights' format");
         std::string dataPath = FLAGS_wts_file_path.substr(0, npos);
-        FLAGS_engine_file_path = dataPath + "-" + 
+        FLAGS_engine_file_path = dataPath + "-" + FLAGS_precision + "-" + FLAGS_deviceType + "-batch"
+            + std::to_string(FLAGS_batch_size) + ".engine";
+    }
+
+    if (isFlagDefault(FLAGS_calibration_table_path))
+    {
+        int npos = FLAGS_wts_file_path.find(".weights");
+        assert(npos != std::string::npos
+               && "wts file file not recognised. File needs to be of '.weights' format");
+        std::string dataPath = FLAGS_wts_file_path.substr(0, npos);
+        FLAGS_calibration_table_path = dataPath + "-calibration.table";
+    }
+}
+
