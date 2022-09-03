@@ -171,4 +171,22 @@ InferParams getYoloInferParams()
                        FLAGS_prob_thresh,        FLAGS_nms_thresh};
 }
 
-uint64_t getSeed()
+uint64_t getSeed() { return FLAGS_seed; }
+
+std::string getNetworkType() { return FLAGS_network_type; }
+
+std::string getPrecision() { return FLAGS_precision; }
+
+std::string getTestImages()
+{
+    size_t extIndex = FLAGS_test_images.find_last_of(".txt");
+    assert(extIndex != std::string::npos
+           && "test_images file not recognised. File needs to be of type '.txt' format");
+    return FLAGS_test_images;
+}
+
+std::string getTestImagesPath() { return FLAGS_test_images_path; }
+
+bool getDecode() { return FLAGS_decode; }
+bool getDoBenchmark() { return FLAGS_do_benchmark; }
+bool getV
