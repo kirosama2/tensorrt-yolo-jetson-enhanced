@@ -18,4 +18,23 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTW
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*
+*/
+
+#include "yoloplugin_lib.h"
+#include "yolo_config_parser.h"
+#include "yolov2.h"
+#include "yolov3.h"
+
+#include <iomanip>
+#include <sys/time.h>
+
+static void decodeBatchDetections(const YoloPluginCtx* ctx, std::vector<YoloPluginOutput*>& outputs)
+{
+    for (uint p = 0; p < ctx->batchSize; ++p)
+    {
+        YoloPluginOutput* out = new YoloPluginOutput;
+        std::vector<BBoxInfo> binfo = ctx->inferenceNetwork->decodeDetections(
+            p, ctx->initParams.processingHeight, ctx-
