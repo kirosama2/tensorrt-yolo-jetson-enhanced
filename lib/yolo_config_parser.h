@@ -47,4 +47,6 @@ bool getViewDetections();
 bool getSaveDetections();
 std::string getSaveDetectionsPath();
 uint getBatchSize();
-bool getSh
+bool getShuffleTestSet();
+
+#endif //_YOLO_CONFIG_PARSER_
