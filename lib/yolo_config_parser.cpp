@@ -189,4 +189,17 @@ std::string getTestImagesPath() { return FLAGS_test_images_path; }
 
 bool getDecode() { return FLAGS_decode; }
 bool getDoBenchmark() { return FLAGS_do_benchmark; }
-bool getV
+bool getViewDetections() { return FLAGS_view_detections; }
+bool getSaveDetections()
+{
+    if (FLAGS_save_detections)
+        assert(!isFlagDefault(FLAGS_save_detections_path)
+               && "save_detections path has to be set if save_detections is set to true");
+    return FLAGS_save_detections;
+}
+
+std::string getSaveDetectionsPath() { return FLAGS_save_detections_path; }
+
+uint getBatchSize() { return FLAGS_batch_size; }
+
+bool getShuffleTestSet() { return FLAGS_shuffle_test_set; }
