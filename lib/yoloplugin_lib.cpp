@@ -48,4 +48,19 @@ static void decodeBatchDetections(const YoloPluginCtx* ctx, std::vector<YoloPlug
             YoloPluginObject obj;
             obj.left = static_cast<int>(b.box.x1);
             obj.top = static_cast<int>(b.box.y1);
-        
+            obj.width = static_cast<int>(b.box.x2 - b.box.x1);
+            obj.height = static_cast<int>(b.box.y2 - b.box.y1);
+            strcpy(obj.label, ctx->inferenceNetwork->getClassName(b.label).c_str());
+            out->object[j] = obj;
+
+            if (ctx->inferParams.printPredictionInfo)
+            {
+                printPredictions(b, ctx->inferenceNetwork->getClassName(b.label));
+            }
+        }
+        outputs.at(p) = out;
+    }
+}
+
+static void dsPreProcessBatchInput(const std::vector<cv::Mat*>& cvmats, cv::Mat& batchBlob,
+          
