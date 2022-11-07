@@ -63,4 +63,14 @@ static void decodeBatchDetections(const YoloPluginCtx* ctx, std::vector<YoloPlug
 }
 
 static void dsPreProcessBatchInput(const std::vector<cv::Mat*>& cvmats, cv::Mat& batchBlob,
-          
+                                   const int& processingHeight, const int& processingWidth,
+                                   const int& inputH, const int& inputW)
+{
+
+    std::vector<cv::Mat> batch_images(
+        cvmats.size(), cv::Mat(cv::Size(processingWidth, processingHeight), CV_8UC3));
+    for (uint i = 0; i < cvmats.size(); ++i)
+    {
+        cv::Mat imageResize, imageBorder, inputImage;
+        inputImage = *cvmats.at(i);
+        int maxBorder = std::max(inputImage.size().width, inputImage.size().h
