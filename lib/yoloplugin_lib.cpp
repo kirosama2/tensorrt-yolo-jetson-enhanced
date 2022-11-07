@@ -73,4 +73,15 @@ static void dsPreProcessBatchInput(const std::vector<cv::Mat*>& cvmats, cv::Mat&
     {
         cv::Mat imageResize, imageBorder, inputImage;
         inputImage = *cvmats.at(i);
-        int maxBorder = std::max(inputImage.size().width, inputImage.size().h
+        int maxBorder = std::max(inputImage.size().width, inputImage.size().height);
+
+        assert((maxBorder - inputImage.size().height) % 2 == 0);
+        assert((maxBorder - inputImage.size().width) % 2 == 0);
+
+        int yOffset = (maxBorder - inputImage.size().height) / 2;
+        int xOffset = (maxBorder - inputImage.size().width) / 2;
+
+        // Letterbox and resize to maintain aspect ratio
+        cv::copyMakeBorder(inputImage, imageBorder, yOffset, yOffset, xOffset, xOffset,
+                           cv::BORDER_CONSTANT, cv::Scalar(127.5, 127.5, 127.5));
+        cv::resize(imageBorder, ima
