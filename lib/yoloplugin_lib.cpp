@@ -84,4 +84,18 @@ static void dsPreProcessBatchInput(const std::vector<cv::Mat*>& cvmats, cv::Mat&
         // Letterbox and resize to maintain aspect ratio
         cv::copyMakeBorder(inputImage, imageBorder, yOffset, yOffset, xOffset, xOffset,
                            cv::BORDER_CONSTANT, cv::Scalar(127.5, 127.5, 127.5));
-        cv::resize(imageBorder, ima
+        cv::resize(imageBorder, imageResize, cv::Size(inputW, inputH), 0, 0, cv::INTER_CUBIC);
+        batch_images.at(i) = imageResize;
+    }
+
+    batchBlob = cv::dnn::blobFromImages(batch_images, 1.0, cv::Size(inputW, inputH),
+                                        cv::Scalar(0.0, 0.0, 0.0), false, false);
+}
+
+YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchSize)
+{
+    char** gArgV = new char*[2];
+    gArgV[0] = new char[64];
+    gArgV[1] = new char[512];
+    strcpy(gArgV[0], "yolo_plugin_ctx");
+    strcpy(gArgV[1], std::string("--fl
