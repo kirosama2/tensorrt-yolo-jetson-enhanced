@@ -98,4 +98,18 @@ YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchS
     gArgV[0] = new char[64];
     gArgV[1] = new char[512];
     strcpy(gArgV[0], "yolo_plugin_ctx");
-    strcpy(gArgV[1], std::string("--fl
+    strcpy(gArgV[1], std::string("--flagfile=" + initParams->configFilePath).c_str());
+    yoloConfigParserInit(2, gArgV);
+
+    YoloPluginCtx* ctx = new YoloPluginCtx;
+    ctx->initParams = *initParams;
+    ctx->batchSize = batchSize;
+    ctx->networkInfo = getYoloNetworkInfo();
+    ctx->inferParams = getYoloInferParams();
+    uint configBatchSize = getBatchSize();
+
+    // Check if config batchsize matches buffer batch size in the pipeline
+    if (ctx->batchSize != configBatchSize)
+    {
+        std::cerr
+    
