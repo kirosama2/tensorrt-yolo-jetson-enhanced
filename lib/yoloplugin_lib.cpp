@@ -134,4 +134,18 @@ YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchS
     }
     else
     {
-        std::cerr << "ERROR: Unreco
+        std::cerr << "ERROR: Unrecognized network type " << ctx->networkInfo.networkType
+                  << std::endl;
+        std::cerr << "Network Type has to be one among the following : yolov2, yolov2-tiny, yolov3 "
+                     "and yolov3-tiny"
+                  << std::endl;
+        return nullptr;
+    }
+
+    delete[] gArgV;
+    return ctx;
+}
+
+std::vector<YoloPluginOutput*> YoloPluginProcess(YoloPluginCtx* ctx, std::vector<cv::Mat*>& cvmats)
+{
+    assert((cvmats.size() <= ctx->batchSize) && "Image batch size exceeds TRT engines batch size")
