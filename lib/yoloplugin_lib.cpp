@@ -119,4 +119,19 @@ YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchS
                && "wts file file not recognised. File needs to be of '.weights' format");
         std::string dataPath = ctx->networkInfo.wtsFilePath.substr(0, npos);
         ctx->networkInfo.enginePath = dataPath + "-" + ctx->networkInfo.precision + "-batch"
-            + std::to_string(ctx->
+            + std::to_string(ctx->batchSize) + ".engine";
+    }
+
+    if ((ctx->networkInfo.networkType == "yolov2")
+        || (ctx->networkInfo.networkType == "yolov2-tiny"))
+    {
+        ctx->inferenceNetwork = new YoloV2(batchSize, ctx->networkInfo, ctx->inferParams);
+    }
+    else if ((ctx->networkInfo.networkType == "yolov3")
+             || (ctx->networkInfo.networkType == "yolov3-tiny"))
+    {
+        ctx->inferenceNetwork = new YoloV3(batchSize, ctx->networkInfo, ctx->inferParams);
+    }
+    else
+    {
+        std::cerr << "ERROR: Unreco
