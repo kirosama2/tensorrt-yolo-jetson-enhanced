@@ -148,4 +148,15 @@ YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchS
 
 std::vector<YoloPluginOutput*> YoloPluginProcess(YoloPluginCtx* ctx, std::vector<cv::Mat*>& cvmats)
 {
-    assert((cvmats.size() <= ctx->batchSize) && "Image batch size exceeds TRT engines batch size")
+    assert((cvmats.size() <= ctx->batchSize) && "Image batch size exceeds TRT engines batch size");
+    std::vector<YoloPluginOutput*> outputs = std::vector<YoloPluginOutput*>(cvmats.size(), nullptr);
+    cv::Mat preprocessedImages;
+    struct timeval preStart, preEnd, inferStart, inferEnd, postStart, postEnd;
+    double preElapsed = 0.0, inferElapsed = 0.0, postElapsed = 0.0;
+
+    if (cvmats.size() > 0)
+    {
+        gettimeofday(&preStart, NULL);
+        dsPreProcessBatchInput(cvmats, preprocessedImages, ctx->initParams.processingWidth,
+                               ctx->initParams.processingHeight, ctx->inferenceNetwork->getInputH(),
+            
