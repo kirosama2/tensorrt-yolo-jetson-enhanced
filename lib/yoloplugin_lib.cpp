@@ -159,4 +159,20 @@ std::vector<YoloPluginOutput*> YoloPluginProcess(YoloPluginCtx* ctx, std::vector
         gettimeofday(&preStart, NULL);
         dsPreProcessBatchInput(cvmats, preprocessedImages, ctx->initParams.processingWidth,
                                ctx->initParams.processingHeight, ctx->inferenceNetwork->getInputH(),
-            
+                               ctx->inferenceNetwork->getInputW());
+        gettimeofday(&preEnd, NULL);
+
+        gettimeofday(&inferStart, NULL);
+        ctx->inferenceNetwork->doInference(preprocessedImages.data, cvmats.size());
+        gettimeofday(&inferEnd, NULL);
+
+        gettimeofday(&postStart, NULL);
+        decodeBatchDetections(ctx, outputs);
+        gettimeofday(&postEnd, NULL);
+    }
+
+    // Perf calc
+    if (ctx->inferParams.printPerfInfo)
+    {
+        preElapsed
+            = ((preEnd.tv_sec - preStart.tv_sec) + (preEnd.tv_usec - preStart.tv_use
