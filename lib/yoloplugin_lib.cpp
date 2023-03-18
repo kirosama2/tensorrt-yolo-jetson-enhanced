@@ -202,4 +202,10 @@ void YoloPluginCtxDeinit(YoloPluginCtx* ctx)
                   << "PreProcess : " << ctx->preTime / ctx->imageCount
                   << " ms Inference : " << ctx->inferTime / ctx->imageCount
                   << " ms PostProcess : " << ctx->postTime / ctx->imageCount << " ms Total : "
-                  << (ctx->preTime + ctx->postTime + ctx->inferT
+                  << (ctx->preTime + ctx->postTime + ctx->inferTime) / ctx->imageCount
+                  << " ms per Image" << std::endl;
+    }
+
+    delete ctx->inferenceNetwork;
+    delete ctx;
+}
