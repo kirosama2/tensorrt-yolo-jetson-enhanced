@@ -175,4 +175,21 @@ std::vector<YoloPluginOutput*> YoloPluginProcess(YoloPluginCtx* ctx, std::vector
     if (ctx->inferParams.printPerfInfo)
     {
         preElapsed
-            = ((preEnd.tv_sec - preStart.tv_sec) + (preEnd.tv_usec - preStart.tv_use
+            = ((preEnd.tv_sec - preStart.tv_sec) + (preEnd.tv_usec - preStart.tv_usec) / 1000000.0)
+            * 1000;
+        inferElapsed = ((inferEnd.tv_sec - inferStart.tv_sec)
+                        + (inferEnd.tv_usec - inferStart.tv_usec) / 1000000.0)
+            * 1000;
+        postElapsed = ((postEnd.tv_sec - postStart.tv_sec)
+                       + (postEnd.tv_usec - postStart.tv_usec) / 1000000.0)
+            * 1000;
+
+        ctx->inferTime += inferElapsed;
+        ctx->preTime += preElapsed;
+        ctx->postTime += postElapsed;
+        ctx->imageCount += cvmats.size();
+    }
+    return outputs;
+}
+
+void YoloPluginCtxDeinit(YoloPluginCtx*
