@@ -17,4 +17,28 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*
+*/
+#ifndef __YOLOPLUGIN_LIB__
+#define __YOLOPLUGIN_LIB__
+
+#include <glib.h>
+
+#include "calibrator.h"
+#include "trt_utils.h"
+#include "yolo.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define MAX_OBJECTS_PER_FRAME 32
+typedef struct YoloPluginCtx YoloPluginCtx;
+typedef struct YoloPluginOutput YoloPluginOutput;
+// Init parameters structure as input, required for instantiating yoloplugin_lib
+typedef struct
+{
+    // Width at which fram
