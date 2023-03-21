@@ -41,4 +41,24 @@ typedef struct YoloPluginOutput YoloPluginOutput;
 // Init parameters structure as input, required for instantiating yoloplugin_lib
 typedef struct
 {
-    // Width at which fram
+    // Width at which frame/object will be scaled
+    int processingWidth;
+    // height at which frame/object will be scaled
+    int processingHeight;
+    // Flag to indicate whether operating on crops of full frame
+    int fullFrame;
+    // Plugin config file
+    std::string configFilePath;
+} YoloPluginInitParams;
+
+struct YoloPluginCtx
+{
+    YoloPluginInitParams initParams;
+    NetworkInfo networkInfo;
+    InferParams inferParams;
+    Yolo* inferenceNetwork;
+
+    // perf vars
+    float inferTime = 0.0, preTime = 0.0, postTime = 0.0;
+    uint batchSize = 0;
+    uint64_t image
