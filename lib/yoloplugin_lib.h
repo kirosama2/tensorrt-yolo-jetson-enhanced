@@ -85,4 +85,13 @@ struct YoloPluginOutput
 YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchSize);
 
 // Dequeue processed output
-std::vector<YoloPluginOutput*> YoloPluginPro
+std::vector<YoloPluginOutput*> YoloPluginProcess(YoloPluginCtx* ctx, std::vector<cv::Mat*>& cvmats);
+
+// Deinitialize library context
+void YoloPluginCtxDeinit(YoloPluginCtx* ctx);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
