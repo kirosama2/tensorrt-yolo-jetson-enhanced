@@ -61,4 +61,28 @@ struct YoloPluginCtx
     // perf vars
     float inferTime = 0.0, preTime = 0.0, postTime = 0.0;
     uint batchSize = 0;
-    uint64_t image
+    uint64_t imageCount = 0;
+};
+
+// Detected/Labelled object structure, stores bounding box info along with label
+typedef struct
+{
+    int left;
+    int top;
+    int width;
+    int height;
+    char label[64];
+} YoloPluginObject;
+
+// Output data returned after processing
+struct YoloPluginOutput
+{
+    int numObjects;
+    YoloPluginObject object[MAX_OBJECTS_PER_FRAME];
+};
+
+// Initialize library context
+YoloPluginCtx* YoloPluginCtxInit(YoloPluginInitParams* initParams, size_t batchSize);
+
+// Dequeue processed output
+std::vector<YoloPluginOutput*> YoloPluginPro
