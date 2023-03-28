@@ -45,4 +45,13 @@ std::vector<BBoxInfo> YoloV2::decodeTensor(const int imageIdx, const int imageH,
     {
         for (uint x = 0; x < tensor.gridSize; x++)
         {
-  
+            for (uint b = 0; b < tensor.numBBoxes; b++)
+            {
+                const float pw = tensor.anchors[2 * b];
+                const float ph = tensor.anchors[2 * b + 1];
+                const int numGridCells = tensor.gridSize * tensor.gridSize;
+                const int bbindex = y * tensor.gridSize + x;
+                const float bx
+                    = x + detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 0)];
+                const float by
+                    = 
