@@ -62,4 +62,22 @@ std::vector<BBoxInfo> YoloV2::decodeTensor(const int imageIdx, const int imageH,
 
                 const float objectness
                     = detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 4)];
-                float maxProb = 0.0f
+                float maxProb = 0.0f;
+                int maxIndex = -1;
+
+                for (uint i = 0; i < tensor.numClasses; i++)
+                {
+                    float prob
+                        = detections[bbindex
+                                     + numGridCells * (b * (5 + tensor.numClasses) + (5 + i))];
+
+                    if (prob > maxProb)
+                    {
+                        maxProb = prob;
+                        maxIndex = i;
+                    }
+                }
+
+                maxProb = objectness * maxProb;
+
+                if (maxPro
