@@ -54,4 +54,12 @@ std::vector<BBoxInfo> YoloV2::decodeTensor(const int imageIdx, const int imageH,
                 const float bx
                     = x + detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 0)];
                 const float by
-                    = 
+                    = y + detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 1)];
+                const float bw = pw
+                    * exp(detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 2)]);
+                const float bh = ph
+                    * exp(detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 3)]);
+
+                const float objectness
+                    = detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 4)];
+                float maxProb = 0.0f
