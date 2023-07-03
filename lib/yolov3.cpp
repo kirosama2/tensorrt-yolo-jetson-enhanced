@@ -28,4 +28,15 @@ YoloV3::YoloV3(const uint batchSize, const NetworkInfo& networkInfo,
                const InferParams& inferParams) :
     Yolo(batchSize, networkInfo, inferParams){};
 
-std::vector<BBoxInfo> YoloV3
+std::vector<BBoxInfo> YoloV3::decodeTensor(const int imageIdx, const int imageH, const int imageW,
+                                           const TensorInfo& tensor)
+{
+    float scalingFactor
+        = std::min(static_cast<float>(m_InputW) / imageW, static_cast<float>(m_InputH) / imageH);
+    float xOffset = (m_InputW - scalingFactor * imageW) / 2;
+    float yOffset = (m_InputH - scalingFactor * imageH) / 2;
+
+    const float* detections = &tensor.hostBuffer[imageIdx * tensor.volume];
+
+    std::vector<BBoxInfo> binfo;
+    for (uint y = 0; y < tensor.gridSize; ++y
