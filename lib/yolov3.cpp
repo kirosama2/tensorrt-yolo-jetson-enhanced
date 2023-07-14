@@ -51,4 +51,14 @@ std::vector<BBoxInfo> YoloV3::decodeTensor(const int imageIdx, const int imageH,
                 const int numGridCells = tensor.gridSize * tensor.gridSize;
                 const int bbindex = y * tensor.gridSize + x;
                 const float bx
-                    = x + detections[bbindex + n
+                    = x + detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 0)];
+
+                const float by
+                    = y + detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 1)];
+                const float bw
+                    = pw * detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 2)];
+                const float bh
+                    = ph * detections[bbindex + numGridCells * (b * (5 + tensor.numClasses) + 3)];
+
+                const float objectness
+                    = detections[bbindex + numGridCells * (b * (5 + tensor.numCl
