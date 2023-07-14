@@ -78,4 +78,15 @@ std::vector<BBoxInfo> YoloV3::decodeTensor(const int imageIdx, const int imageH,
                         maxIndex = i;
                     }
                 }
-                maxProb = objectness * m
+                maxProb = objectness * maxProb;
+
+                if (maxProb > m_ProbThresh)
+                {
+                    addBBoxProposal(bx, by, bw, bh, tensor.stride, scalingFactor, xOffset, yOffset,
+                                    maxIndex, maxProb, binfo);
+                }
+            }
+        }
+    }
+    return binfo;
+}
