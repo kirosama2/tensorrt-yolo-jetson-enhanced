@@ -33,4 +33,36 @@ SOFTWARE.
 #include <cstdlib>
 #include <unistd.h>
 #include <queue>
-#include <t
+#include <thread>
+#include <sys/time.h>
+#include <opencv2/videoio.hpp>
+
+std::queue<cv::Mat> readQueue;
+std::queue<cv::Mat> writeQueue;
+
+volatile sig_atomic_t stop = 0;
+
+void sigint_handler(int s){
+    printf("\nCleaning resources...\n");
+    stop = 1;
+}
+
+void readFrame(cv::VideoCapture& cap) {
+    cv::Mat frame;
+
+    while (!stop)
+    {
+        cap >> frame;
+
+        if (frame.empty()) {
+            std::cout << "Could not read camera" << std::endl;
+            return;
+        }
+
+        readQueue.push(frame);
+    }
+}
+
+void processFrame(std::unique_ptr<Yolo>& inferNet) {
+    DsImage dsImage;
+    while (!stop
