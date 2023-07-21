@@ -85,4 +85,15 @@ void processFrame(std::unique_ptr<Yolo>& inferNet) {
         inferNet->doInference(trtInput.data, 1);
 
         // gettimeofday(&inferEnd, NULL);
-        // double inferElapsed = ((inferEnd.tv_sec - inferSta
+        // double inferElapsed = ((inferEnd.tv_sec - inferStart.tv_sec)
+        //                 + (inferEnd.tv_usec - inferStart.tv_usec) / 1000000.0)
+        //                 * 1000;
+        // std::cout << "Frame process time: " << inferElapsed << "ms" << std::endl;
+
+        auto binfo = inferNet->decodeDetections(0, dsImage.getImageHeight(),
+                                                dsImage.getImageWidth());
+        auto remaining
+            = nmsAllClasses(inferNet->getNMSThresh(), binfo, inferNet->getNumClasses());
+        for (auto b : remaining)
+        {
+            printPredi
