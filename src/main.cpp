@@ -65,4 +65,24 @@ void readFrame(cv::VideoCapture& cap) {
 
 void processFrame(std::unique_ptr<Yolo>& inferNet) {
     DsImage dsImage;
-    while (!stop
+    while (!stop)
+    {
+        if (readQueue.empty()){
+            continue;
+        }
+
+        cv::Mat frame = readQueue.front();
+        readQueue.pop();
+
+
+        // Load a new batch
+        dsImage = DsImage(frame, inferNet->getInputH(), inferNet->getInputW());
+        cv::Mat trtInput = blobFromDsImage(dsImage, inferNet->getInputH(), inferNet->getInputW());
+
+        // struct timeval inferStart, inferEnd;
+        // gettimeofday(&inferStart, NULL);
+
+        inferNet->doInference(trtInput.data, 1);
+
+        // gettimeofday(&inferEnd, NULL);
+        // double inferElapsed = ((inferEnd.tv_sec - inferSta
