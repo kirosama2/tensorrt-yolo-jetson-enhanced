@@ -96,4 +96,29 @@ void processFrame(std::unique_ptr<Yolo>& inferNet) {
             = nmsAllClasses(inferNet->getNMSThresh(), binfo, inferNet->getNumClasses());
         for (auto b : remaining)
         {
-            printPredi
+            printPredictions(b, inferNet->getClassName(b.label));
+            dsImage.addBBox(b, inferNet->getClassName(b.label));
+        }
+
+        cv::Mat img = dsImage.getMaskedImage();
+
+        writeQueue.push(img);
+    }
+}
+
+void writeFrame(cv::VideoWriter& out) {
+    while (!stop) {
+        if (writeQueue.empty()) {
+            continue;
+        }
+
+        cv::Mat img = writeQueue.front();
+        writeQueue.pop();
+
+        // struct timeval inferStart, inferEnd;
+        // gettimeofday(&inferStart, NULL);
+
+        out << img;
+
+        // gettimeofday(&inferEnd, NULL);
+        // double inferElapsed 
