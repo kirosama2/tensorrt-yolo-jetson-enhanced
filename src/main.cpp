@@ -121,4 +121,19 @@ void writeFrame(cv::VideoWriter& out) {
         out << img;
 
         // gettimeofday(&inferEnd, NULL);
-        // double inferElapsed 
+        // double inferElapsed = ((inferEnd.tv_sec - inferStart.tv_sec)
+        //                  + (inferEnd.tv_usec - inferStart.tv_usec) / 1000000.0)
+        //                  * 1000;
+        // std::cout << "Frame write time: " << inferElapsed << "ms" << std::endl;
+    }
+}
+
+int main(int argc, char** argv)
+{
+    // Flag set in the command line overrides the value in the flagfile
+    gflags::SetUsageMessage(
+        "Usage : trt-yolo-app --flagfile=</path/to/config_file.txt> --<flag>=value ...");
+
+    // parse config params
+    yoloConfigParserInit(argc, argv);
+    NetworkInfo yoloInfo = getYoloN
