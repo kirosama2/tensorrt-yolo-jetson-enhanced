@@ -136,4 +136,17 @@ int main(int argc, char** argv)
 
     // parse config params
     yoloConfigParserInit(argc, argv);
-    NetworkInfo yoloInfo = getYoloN
+    NetworkInfo yoloInfo = getYoloNetworkInfo();
+    InferParams yoloInferParams = getYoloInferParams();
+    uint batchSize = getBatchSize();
+
+    std::unique_ptr<Yolo> inferNet{nullptr};
+    inferNet = std::unique_ptr<Yolo>{new YoloV3(batchSize, yoloInfo, yoloInferParams)};
+
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = sigint_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+
+    char* cameraSrc = "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, f
