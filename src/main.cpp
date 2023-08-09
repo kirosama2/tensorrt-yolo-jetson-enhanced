@@ -149,4 +149,15 @@ int main(int argc, char** argv)
     sigIntHandler.sa_flags = 0;
     sigaction(SIGINT, &sigIntHandler, NULL);
 
-    char* cameraSrc = "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, f
+    char* cameraSrc = "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1 ! nvvidconv flip-method=0 ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
+    cv::VideoCapture cap(cameraSrc);
+    if (!cap.isOpened())
+    {
+        std::cout  << "Could not open camera" << std::endl;
+        return -1;
+    }
+
+    int img_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    int img_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+    double frame_rate = cap.get(cv::CAP_PROP_FPS);
+    printf("Video spec: %dx%d@%dfps\n", i
