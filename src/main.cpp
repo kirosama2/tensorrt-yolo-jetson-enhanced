@@ -160,4 +160,11 @@ int main(int argc, char** argv)
     int img_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int img_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
     double frame_rate = cap.get(cv::CAP_PROP_FPS);
-    printf("Video spec: %dx%d@%dfps\n", i
+    printf("Video spec: %dx%d@%dfps\n", img_width, img_height, int(frame_rate));
+
+    char* fileOutput = "appsrc ! videoconvert ! nvvidconv ! video/x-raw(memory:NVMM), format=(string)NV12 ! nvv4l2h265enc ! h265parse ! qtmux ! filesink location=output.mp4 ";
+    char* tcpOutput = "appsrc ! videoconvert ! nvvidconv ! video/x-raw(memory:NVMM), format=(string)NV12 ! nvv4l2h265enc insert-sps-pps=true ! queue ! h265parse ! queue ! rtph265pay mtu=65507 ! queue ! udpsink host=192.168.1.194 port=1234";
+    cv::VideoWriter out(fileOutput, 0, 24.0, cv::Size(1920, 1080), true);
+    if (!out.isOpened())
+    {
+        std::cout  << "Could not open write file"<< std::en
