@@ -167,4 +167,17 @@ int main(int argc, char** argv)
     cv::VideoWriter out(fileOutput, 0, 24.0, cv::Size(1920, 1080), true);
     if (!out.isOpened())
     {
-        std::cout  << "Could not open write file"<< std::en
+        std::cout  << "Could not open write file"<< std::endl;
+        return -1;
+    }
+
+    std::thread read(readFrame, std::ref(cap));
+    std::thread process(processFrame, std::ref(inferNet));
+    std::thread write(writeFrame, std::ref(out));
+
+    read.join();
+    process.join();
+    write.join();
+
+    return 0;
+}
