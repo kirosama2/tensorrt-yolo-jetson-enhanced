@@ -48,3 +48,12 @@ This project leverages `GStreamer` to make full use of Nvidia's hardware acceler
 For instance, for testing, I used the following on a Jetson Nano:
 
 ```bash
+gst-launch-1.0 nvarguscamerasrc ! \
+    'video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1' ! \
+    nvvidconv flip-method=0 ! 'video/x-raw, format=(string)BGRx' ! \
+    videoconvert ! 'video/x-raw, format=(string)BGR' ! \
+    videoconvert ! 'video/x-raw, format=(string)RGB' ! \
+    videoconvert ! nvvidconv ! 'video/x-raw(memory:NVMM), format=(string)NV12' ! \
+    nvv4l2h265enc insert-sps-pps=true ! 'video/x-h265, stream-format=(string)byte-stream' ! \
+    queue ! h265parse ! queue ! \
+    rtph26
