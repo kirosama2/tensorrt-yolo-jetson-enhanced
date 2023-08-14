@@ -72,4 +72,6 @@ gst-launch-1.0 udpsrc port=1234 ! \
 
 This allows you to view the streaming video on your desktop, which is being captured on Jetson Nano.
 
-This means the GStreamer pipeline is functional, so these commands cou
+This means the GStreamer pipeline is functional, so these commands could be utilised in OpenCV `VideoCapture`'s `src` and `VideoWriter`'s `dest`. See `src/main.cpp` for more details.
+
+For further details on `GStreamer` and `nvarguscamerasrc`, please take a look at the [Accelerated GStreamer User Guide](https://developer.download.nvidia.cn/embedded/L4T/r32_Release_v1.0/Docs/Accelerated_GStreamer_User_Guide.pdf?77IO4det-OQLWN0hWfkVQCope_V7P4rDyYC4sgwfT2d0tU4dppX53NQBEX2irCqB4Gwuc8SKc-kWMOoX7qqrHLwTFDOdEECRE95Kbi39JQxwLw7bklgVoE4G5n5L6Y5y43tcaaYyVEPqFFpVt5l55D3NYeVrkLFd0ak3tqCsiut-BADOUjU).
