@@ -56,4 +56,20 @@ gst-launch-1.0 nvarguscamerasrc ! \
     videoconvert ! nvvidconv ! 'video/x-raw(memory:NVMM), format=(string)NV12' ! \
     nvv4l2h265enc insert-sps-pps=true ! 'video/x-h265, stream-format=(string)byte-stream' ! \
     queue ! h265parse ! queue ! \
-    rtph26
+    rtph265pay ! queue ! \
+    udpsink host=192.168.1.194 port=1234
+```
+
+The command above reads frames from the camera and sends the stream to `192.168.1.194`, which is my desktop address in LAN.
+
+From desktop, execute:
+
+```bash
+gst-launch-1.0 udpsrc port=1234 ! \
+    application/x-rtp,encoding-name=H265 ! queue ! \
+    rtph265depay ! queue ! avdec_h265 ! queue ! autovideosink
+```
+
+This allows you to view the streaming video on your desktop, which is being captured on Jetson Nano.
+
+This means the GStreamer pipeline is functional, so these commands cou
